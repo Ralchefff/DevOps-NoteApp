@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+w<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,14 +16,16 @@
     <h1>DevOps Notes</h1>
 
     <div class="note-form">
-        <form>
+        <form method="POST" action="/add">
             <input
                 type="text"
+                name="title"
                 placeholder="Note title"
                 required
             >
 
             <textarea
+                name="content"
                 placeholder="Write your note..."
                 required
             ></textarea>
@@ -34,25 +36,8 @@
         </form>
     </div>
 
-    <div class="notes">
+    <div class="notes" id="notescontainer"></div>
 
-        <div class="note">
-            <h2>First Note</h2>
-            <p>This is my first DevOps note.</p>
-            <button class="delete-button">
-                Delete
-            </button>
-        </div>
-
-        <div class="note">
-            <h2>Docker</h2>
-            <p>Learn how Docker images and containers work.</p>
-            <button class="delete-button">
-                Delete
-            </button>
-        </div>
-
-    </div>
-
+<script src="{{ url_for('static', filename='app.js') }}"></script>        
 </body>
 </html>
