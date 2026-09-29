@@ -25,6 +25,19 @@ def add_note():
 	conn.commit()
 	conn.close()
 	return redirect("/")
+@app.route("/api/notes/<int:note_id>", methods=["DELETE"])
+def delete_note(note_id):
+	conn = get_db_connection()
+	curson = conn.execute(
+		"DELETE FROM notes WHERE id = ?",
+		(note_id,)
+	)
+	conn.commit()
+	conn.close()
+	if curson.rowcount == 0:
+		return {"error":"Note not found"}, 404
+	return {"success": True}
+
 
 @app.route("/")
 def home():
