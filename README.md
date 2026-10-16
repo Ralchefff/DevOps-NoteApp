@@ -22,11 +22,13 @@ This file documents the development process of my initial DevOps project.
 * Created `app.js` to manipulate the DOM and fetch notes from the API.
 * Added functionality to display notes retrieved from the database.
 * Added functionality to delete notes through the API.
-
+* Containerized the application using Docker.
+* Changed the DB to MariaDb
+* Created a volume for MariaDB using docker compose.
+  
 ### Next Steps
 
 * Add note editing functionality.
-* Containerize the application using Docker.
 * Create a Docker Compose setup.
 * Implement CI/CD with GitHub Actions.
 * Deploy the application to a cloud VM.
