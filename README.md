@@ -29,7 +29,6 @@ This file documents the development process of my initial DevOps project.
 ### Next Steps
 
 * Add note editing functionality.
-* Create a Docker Compose setup.
 * Implement CI/CD with GitHub Actions.
 * Deploy the application to a cloud VM.
 * Add monitoring and logging.
