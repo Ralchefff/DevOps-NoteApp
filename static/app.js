@@ -12,7 +12,7 @@ fetch("/api/notes")
 
             noteElement.innerHTML = `
                 <h3>${note.title}</h3>
-                <p>${note.content}</p>
+                <p>${note.description}</p>
                 <button class="delete-button">Delete</button>
             `;
 
