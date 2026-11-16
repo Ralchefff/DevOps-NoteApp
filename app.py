@@ -28,7 +28,7 @@ def get_notes():
     finally:
         conn.close()
 
-    return notes
+    return list(notes)
 @app.route("/add", methods=["POST"])
 def add_note():
     title = request.form["title"]
