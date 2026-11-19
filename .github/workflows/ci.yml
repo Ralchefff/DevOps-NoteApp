@@ -57,5 +57,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/devops-noteapp:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/devops-noteapp:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USER }}/devops-noteapp:latest
+            ${{ secrets.DOCKERHUB_USER }}/devops-noteapp:${{ github.sha }}
