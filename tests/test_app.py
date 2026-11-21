@@ -5,7 +5,7 @@ from app import app, get_db_connection
 
 @pytest.fixture
 def client(monkeypatch):
-    # Използваме отделна тестова MariaDB база.
+    
     monkeypatch.setenv("DB_HOST", "localhost")
     monkeypatch.setenv("DB_USER", "notetester")
     monkeypatch.setenv("DB_PASSWORD", "111")
@@ -52,7 +52,7 @@ def test_adding_notes(client):
 
     assert response.status_code == 302
 
-    # Проверяваме дали бележката е записана.
+    
     notes_response = client.get("/api/notes")
     assert notes_response.status_code == 200
 

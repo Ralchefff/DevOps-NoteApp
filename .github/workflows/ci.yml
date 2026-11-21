@@ -35,10 +35,10 @@ jobs:
           --health-retries=10
 
     steps:
-      - name: Check repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set Up Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -54,14 +54,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y mariadb-client
 
-      - name: Initialize database schema
+      - name: Initialize main database
         run: |
           mariadb -h 127.0.0.1 -P 3306 -u root -p"$DB_ROOT_PASSWORD" notes < init.sql
+
+      - name: Create test database and user
+        run: |
+          mariadb -h 127.0.0.1 -P 3306 -u root -p"$DB_ROOT_PASSWORD" <<'SQL'
+          CREATE DATABASE IF NOT EXISTS testing;
+          CREATE USER IF NOT EXISTS 'notetester'@'%' IDENTIFIED BY '111';
+          GRANT ALL PRIVILEGES ON testing.* TO 'notetester'@'%';
+          FLUSH PRIVILEGES;
+          SQL
 
       - name: Check Python syntax
         run: python -m compileall -q app.py
 
-      - name: Automated tests
+      - name: Run automated tests
         run: python -m pytest tests/ -v
 
       - name: Build Docker image
@@ -73,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Docker Hub Login
