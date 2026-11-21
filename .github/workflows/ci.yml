@@ -1,5 +1,4 @@
 
-
 name: NotesApp CI
 
 on:
@@ -11,6 +10,29 @@ on:
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
+
+    env:
+      DB_HOST: 127.0.0.1
+      DB_NAME: notes
+      DB_USER: notes_user
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+
+    services:
+      db:
+        image: mariadb:11
+        env:
+          MARIADB_DATABASE: notes
+          MARIADB_USER: notes_user
+          MARIADB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MARIADB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=3s
+          --health-retries=10
 
     steps:
       - name: Check repo
@@ -26,6 +48,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
+
+      - name: Install MariaDB client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mariadb-client
+
+      - name: Initialize database schema
+        run: |
+          mariadb -h 127.0.0.1 -P 3306 -u root -p"$DB_ROOT_PASSWORD" notes < init.sql
 
       - name: Check Python syntax
         run: python -m compileall -q app.py
@@ -59,3 +90,4 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/devops-noteapp:latest
             ${{ secrets.DOCKERHUB_USER }}/devops-noteapp:${{ github.sha }}
+```
