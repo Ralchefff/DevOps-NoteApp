@@ -57,6 +57,7 @@ jobs:
       - name: Initialize main database
         run: |
           mariadb -h 127.0.0.1 -P 3306 -u root -p"$DB_ROOT_PASSWORD" notes < init.sql
+          mariadb -h 127.0.0.1 -P 3306 -u root -p"$DB_ROOT_PASSWORD" testing < init.sql
 
       - name: Create test database and user
         run: |
@@ -66,6 +67,7 @@ jobs:
           GRANT ALL PRIVILEGES ON testing.* TO 'notetester'@'%';
           FLUSH PRIVILEGES;
           SQL
+
 
       - name: Check Python syntax
         run: python -m compileall -q app.py
