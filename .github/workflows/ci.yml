@@ -90,4 +90,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/devops-noteapp:latest
             ${{ secrets.DOCKERHUB_USER }}/devops-noteapp:${{ github.sha }}
-```
