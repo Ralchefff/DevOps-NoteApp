@@ -25,10 +25,9 @@ This file documents the development process of my initial DevOps project.
 * Containerized the application using Docker.
 * Changed the DB to MariaDb
 * Created a volume for MariaDB using docker compose.
+* Implemented CI/CD with GitHub Actions by creating a pytest file containing the tests and a ci.yaml.
+* On every push and pull request the application gets tested and an image gets pushed to dockerhub.
   
 ### Next Steps
-
-* Add note editing functionality.
-* Implement CI/CD with GitHub Actions.
 * Deploy the application to a cloud VM.
 * Add monitoring and logging.
